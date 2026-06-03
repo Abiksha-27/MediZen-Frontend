@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MediZen+</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section id="registerPage" class="auth-page">
+    <div class="auth-container">
+        <div class="auth-left">
+            <img src="register.png" class="side-image">
+        </div>
+
+        <div class="auth-right">
+            <h1>Create Account</h1>
+
+            <label>Full Name</label>
+            <input type="text" id="regName" placeholder="Enter your name">
+
+            <label>Email Address</label>
+            <input type="email" id="regEmail" placeholder="Enter your email">
+
+            <label>Password</label>
+            <div class="password-box">
+                <input type="password" id="regPassword" placeholder="Create password">
+                <span onclick="togglePassword('regPassword')">👁</span>
+            </div>
+
+            <button onclick="registerUser()">Register</button>
+
+            <p>
+                Already have an account?
+                <span onclick="showLoginPage()">Login</span>
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="loginPage" class="auth-page hidden">
+    <div class="auth-container">
+        <div class="auth-left">
+            <img src="register.png" class="side-image">
+        </div>
+
+        <div class="auth-right">
+            <h1>Login</h1>
+
+            <label>Email Address</label>
+            <input type="email" id="loginEmail" placeholder="Enter your email">
+
+            <label>Password</label>
+            <div class="password-box">
+                <input type="password" id="loginPassword" placeholder="Enter password">
+                <span onclick="togglePassword('loginPassword')">👁</span>
+            </div>
+
+            <button onclick="loginUser()">Login</button>
+
+            <p>
+                New user?
+                <span onclick="showRegisterPage()">Register</span>
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="dashboardPage" class="dashboard hidden">
+
+    <div class="sidebar">
+        <div class="logo-section">
+            <h1>💙 MediZen+</h1>
+            <p>Digital Medicine Reminder</p>
+        </div>
+
+        <div class="menu">
+            <button class="menu-btn" onclick="showDashboardSection('dashboardContent')">🏠 Dashboard</button>
+            <button class="menu-btn" onclick="showDashboardSection('medicineContent')">💊 Medicines</button>
+            <button class="menu-btn" onclick="showDashboardSection('reminderContent')">⏰ Reminders</button>
+            <button class="menu-btn" onclick="showDashboardSection('medicineHistoryContent')">📜 Medicine History</button>
+            <button class="menu-btn" onclick="showDashboardSection('medicalHistoryContent')">🩺 Medical History</button>
+            <button class="menu-btn" onclick="showDashboardSection('emergencyContent')">🚨 Emergency</button>
+        </div>
+
+        <div class="bottom-section">
+            <div class="health-tip">❤️ Stay Healthy</div>
+            
+            <button class="logout-btn" onclick="logout()">↩️ Logout</button>
+        </div>
+    </div> 
+
+    <main class="main">
+
+        <div id="dashboardContent" class="dashboard-section">
+
+            <div class="hero-card">
+                <div>
+                    <h1 id="welcomeName">Hello 👋</h1>
+                    <p>Complete your health details and manage your medicine reminders.</p>
+                </div>
+                <div class="hero-icon">💊</div>
+            </div>
+
+            <div class="quick-actions">
+                <button onclick="showSection('healthForm')">👤 Complete<br>Health Profile</button>
+                <button onclick="showSection('medicineForm')">💊 Add First<br>Medicine</button>
+                <button onclick="showSection('emergencyForm')">📞 Add Emergency<br>Contact</button>
+                <button onclick="showSection('doctorForm')">🏥 Add Doctor<br>Visit</button>
+            </div>
+
+
+            <div id="healthForm" class="panel hidden">
+                <h2>Health Profile</h2>
+
+                <input type="text" id="patientName" placeholder="Patient Name">
+                <input type="number" id="age" placeholder="Age">
+
+                <select id="gender">
+                    <option value="">Select Gender</option>
+                    <option>Female</option>
+                    <option>Male</option>
+                </select>
+
+                <select id="healthCondition">
+                    <option value="">Select Health Condition</option>
+                    <option>Sugar Patient</option>
+                    <option>BP Patient</option>
+                    <option>Asthma Patient</option>
+                    <option>Heart Patient</option>
+                    <option>General</option>
+                    <option>Other</option>
+                </select>
+
+                <button onclick="saveHealthProfile()">Save Profile</button>
+            </div>
+
+            <div id="medicineForm" class="panel hidden">
+                <h2>Add Medicine</h2>
+
+                <input type="text" id="medicineName" placeholder="Medicine Name">
+                <input type="text" id="dosage" placeholder="Dosage">
+
+                <select id="medicinePeriod">
+                    <option value="">Select Time</option>
+                    <option>Morning</option>
+                    <option>Afternoon</option>
+                    <option>Night</option>
+                </select>
+
+                <select id="foodTiming">
+                    <option value="">Food Timing</option>
+                    <option>Before Food</option>
+                    <option>After Food</option>
+                </select>
+
+                <input type="time" id="medicineTime">
+                <input type="date" id="startDate">
+                <input type="date" id="endDate">
+
+                <button onclick="addMedicine()">Save Medicine</button>
+            </div>
+
+            <div id="emergencyForm" class="panel hidden">
+                <h2>Emergency Contact</h2>
+
+                <input type="text" id="contactName" placeholder="Contact Name">
+                <input type="text" id="relation" placeholder="Relation">
+                <input 
+                    type="text" 
+                    id="phoneNumber" 
+                    placeholder="10 digit phone number"
+                    maxlength="10"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                >
+
+                <button onclick="saveEmergencyContact()">Save Emergency Contact</button>
+            </div>
+
+            <div id="doctorForm" class="panel hidden">
+                <h2>Doctor Visit</h2>
+
+                <input type="text" id="hospitalName" placeholder="Hospital Name">
+                <input type="text" id="doctorName" placeholder="Doctor Name">
+                <input type="text" id="doctorSpecialist" placeholder="Doctor Specialist">
+                <input type="text" id="checkupReason" placeholder="Checkup Reason">
+                <input type="date" id="visitDate">
+                <textarea id="doctorPrescription" placeholder="Prescription Notes"></textarea>
+                <input type="file" id="prescriptionFile">
+
+                <button onclick="saveDoctorVisit()">Save Doctor Visit</button>
+            </div>
+
+                  <div class="stats-grid">
+                <div class="stat-card">💊<p>Total Medicines</p><h2 id="totalMedicines">0</h2></div>
+                <div class="stat-card">✅<p>Taken</p><h2 id="takenCount">0</h2></div>
+                <div class="stat-card">❌<p>Missed</p><h2 id="missedCount">0</h2></div>
+                <div class="stat-card">⏳<p>Pending</p><h2 id="pendingCount">0</h2></div>
+                <div class="stat-card">🏥<p>Doctor Visits</p><h2 id="doctorVisitCount">0</h2></div>
+            </div>
+
+        </div>
+
+        <div id="medicineContent" class="dashboard-section hidden">
+            <div class="panel">
+                <h2>Today’s Medicines</h2>
+                <div id="medicineCards"></div>
+            </div>
+        </div>
+
+        <div id="reminderContent" class="dashboard-section hidden">
+            <div class="panel">
+                <h2>Alarm Notification</h2>
+                <div id="reminderBox">
+                    <p>No reminder right now.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="medicineHistoryContent" class="dashboard-section hidden">
+            <div class="panel">
+                <h2>Patient Medicine History</h2>
+
+                <button class="show-btn" onclick="toggleMedicineHistory()">
+                Show Medicine History
+                </button>
+       
+
+<button class="delete-btn hidden" id="confirmDeleteBtn" onclick="deleteSelectedMedicines()">
+    Confirm Delete
+</button>
+
+                <div id="medicineHistoryBox" style="display:none;">
+
+    <button
+        id="deleteMedicineBtn"
+        class="delete-btn"
+        onclick="enableMedicineDeleteMode()">
+
+        🗑 Delete 
+
+    </button>
+    <button id="confirmDeleteBtn"
+        class="delete-btn hidden"
+        onclick="deleteSelectedMedicines()">
+
+    Confirm Delete
+
+</button>
+
+
+   <button id="cancelDeleteBtn"
+        class="delete-btn hidden"
+        onclick="cancelMedicineDeleteMode()">
+
+    Cancel Delete
+
+</button>     <table>
+                        <thead>
+                            <tr>
+                                <th class="delete-column hidden">Select</th>
+                                <th>Medicine Name</th>
+                                <th>Dosage</th>
+                                <th>Time</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Status</th>
+                                <th>Edit</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="statusHistoryTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="medicalHistoryContent" class="dashboard-section hidden">
+            <div class="panel">
+                <h2>Patient Medical History</h2>
+
+                <button class="show-btn" onclick="toggleMedicalHistory()">
+                    Show Patient Medical History
+                </button>
+
+                <div id="medicalHistoryContainer" style="display:none;"></div>
+            </div>
+        </div>
+
+        <div id="emergencyContent" class="dashboard-section hidden">
+            <div class="panel">
+                <h2>Emergency Call</h2>
+
+                <button class="show-btn" onclick="toggleEmergencySection()">
+                    Show Emergency Contact
+                </button>
+
+                <div id="emergencyDetails"></div>
+            </div>
+        </div>
+
+    </main>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
