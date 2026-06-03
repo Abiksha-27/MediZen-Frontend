@@ -6,10 +6,6 @@ let loggedInUser = {
 };
 let remindedMedicines = [];
 
-window.onload = function () {
-    showRegisterPage();
-};
-
 function showRegisterPage() {
     document.getElementById("registerPage").classList.remove("hidden");
     document.getElementById("loginPage").classList.add("hidden");
@@ -975,8 +971,11 @@ function showDashboardSection(sectionId) {
     document.getElementById(sectionId).classList.remove("hidden");
 }
 window.onload = function () {
+    document.getElementById("registerPage").classList.add("hidden");
     document.getElementById("loginPage").classList.add("hidden");
     document.getElementById("dashboardPage").classList.remove("hidden");
+
+    document.getElementById("welcomeName").innerText = "Hello, Patient 👋";
 
     loadDashboard();
     viewMedicines();
