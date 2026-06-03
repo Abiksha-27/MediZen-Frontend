@@ -1,6 +1,9 @@
 const baseUrl = "http://127.0.0.1:8083";
 let editMedicineId = null;
-let loggedInUser = null;
+let loggedInUser = {
+    id: 1,
+    name: "Patient"
+};
 let remindedMedicines = [];
 
 window.onload = function () {
@@ -971,3 +974,13 @@ function showDashboardSection(sectionId) {
 
     document.getElementById(sectionId).classList.remove("hidden");
 }
+window.onload = function () {
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("dashboardPage").classList.remove("hidden");
+
+    loadDashboard();
+    viewMedicines();
+    loadPatientMedicineHistory();
+    loadMedicalHistory();
+    loadEmergencyContact();
+};
